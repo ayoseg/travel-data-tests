@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="0" name="tests.quickTest" skipped="0" tests="2" time="3.9" timestamp="2025-07-26 08:51:23"><testcase classname="tests.quickTest" name="Verify passenger search"/><testcase classname="tests.quickTest" name="Get mac details"/></testsuite>
