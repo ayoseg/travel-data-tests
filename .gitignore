@@ -4,8 +4,15 @@
  .idea/modules.xml
  .idea/*.iml
  .idea/modules
+ */.idea/**
+ */.idea/*
  *.iml
  *.ipr
+ */.html
+
+ */target/**
+ */target/*
+
 
  target/**
  **/target
