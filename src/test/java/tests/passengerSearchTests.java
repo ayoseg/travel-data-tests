@@ -1,6 +1,5 @@
 package tests;
 
-import com.google.gson.JsonObject;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.annotations.Steps;
 import org.junit.Before;
@@ -12,19 +11,20 @@ import utils.BeforeAndAfterHooks;
 import utils.JsonFileHelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RunWith(SerenityRunner.class)
-public class quickTest {
+public class passengerSearchTests {
 
     @Steps
     PassengerIdChecksSteps passengerIdChecksSteps;
+    @Steps
+    JsonFileHelper jsonFileHelper;
 
     @Steps
     BeforeAndAfterHooks hook;
 
-    @Steps
-    JsonFileHelper jsonFileHelper;
 
     @Before
     public void setBaseUrl(){
@@ -32,14 +32,11 @@ public class quickTest {
     }
 
     @Test
-    public void getMacDetails() throws URISyntaxException {
-        File jsonFile = jsonFileHelper.getJsonDataFile("testdata/macdetails.json");
-        JsonObject newJsonData = jsonFileHelper.addProperty(jsonFile, "Hard disk size", "1 TB");
-        passengerIdChecksSteps.passengerStatus1(jsonFileHelper.jsonObjectToString(newJsonData));
+    public void searchForPassenger() throws URISyntaxException, IOException {
+        File jsonFile = jsonFileHelper.getJsonDataFile("testdata/passengerDetails{0}.json");
+        passengerIdChecksSteps.passengerSearch(jsonFile);
         passengerIdChecksSteps.isSuccessResponse();
-        passengerIdChecksSteps.getStatus(2019, "Apple MacBook Pro 16");
-        //passengerIdChecksSteps.getName1("Apple MacBook Pro 16");
-
+        passengerIdChecksSteps.checkSearchResult(1);
     }
-}
 
+}

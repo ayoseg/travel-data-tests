@@ -12,19 +12,20 @@ import utils.BeforeAndAfterHooks;
 import utils.JsonFileHelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RunWith(SerenityRunner.class)
-public class quickTest {
+public class passengerStatusTests {
 
     @Steps
     PassengerIdChecksSteps passengerIdChecksSteps;
 
     @Steps
-    BeforeAndAfterHooks hook;
+    JsonFileHelper jsonFileHelper;
 
     @Steps
-    JsonFileHelper jsonFileHelper;
+    BeforeAndAfterHooks hook;
 
     @Before
     public void setBaseUrl(){
@@ -32,14 +33,12 @@ public class quickTest {
     }
 
     @Test
-    public void getMacDetails() throws URISyntaxException {
-        File jsonFile = jsonFileHelper.getJsonDataFile("testdata/macdetails.json");
-        JsonObject newJsonData = jsonFileHelper.addProperty(jsonFile, "Hard disk size", "1 TB");
-        passengerIdChecksSteps.passengerStatus1(jsonFileHelper.jsonObjectToString(newJsonData));
+    public void passengerStatus() throws URISyntaxException, IOException {
+        File jsonFile = jsonFileHelper.getJsonDataFile("testdata/passengerDetails{0}.json");
+        JsonObject newJsonData = jsonFileHelper.addProperty(jsonFile, "maximum_passenger_count", 10);
+        passengerIdChecksSteps.passengerStatus(jsonFileHelper.jsonObjectToString(newJsonData));
         passengerIdChecksSteps.isSuccessResponse();
-        passengerIdChecksSteps.getStatus(2019, "Apple MacBook Pro 16");
-        //passengerIdChecksSteps.getName1("Apple MacBook Pro 16");
-
+        passengerIdChecksSteps.checkStatusResult(1, true);
     }
-}
 
+}
